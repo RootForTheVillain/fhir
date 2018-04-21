@@ -1,5 +1,6 @@
-# gcc coverage testing tool files
+# IDE
 
-*.gcno
-*.gcda
-*.gcov
+*.idea
+.gradle
+build
+fhirbase

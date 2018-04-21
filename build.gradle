@@ -1,0 +1,51 @@
+buildscript {
+	ext {
+		gradleDockerVersion   = "1.2"
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE")
+		classpath("se.transmode.gradle:gradle-docker:${gradleDockerVersion}")
+	}
+}
+
+plugins { id "io.spring.dependency-management" version "1.0.4.RELEASE" }
+
+apply plugin: "java"
+apply plugin: "application"
+apply plugin: "docker"
+apply plugin: 'io.spring.dependency-management'
+apply plugin: "org.springframework.boot"
+
+compileJava {
+    sourceCompatibility = 1.7
+//    targetCompatibility = 1.8
+    mainClassName       = "io.arbormetrix.api.Application"
+}
+
+jar {
+    baseName = "api"
+    group    = "io.arbormetrix"
+    version  = "0.0.1-SNAPSHOT"
+    manifest { attributes "Main-Class": "io.arbormetrix.api.Application" }
+}
+
+docker {
+    baseImage "alpine"
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web:2.0.1.RELEASE")
+	// compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    //imports { mavenBom("org.springframework.boot:spring-boot-dependencies") }
+}
