@@ -1,4 +1,64 @@
 buildscript {
+	repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        mavenCentral()
+	}
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE'
+        classpath 'gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.0'
+    }
+}
+
+/*group = 'io.arbormetrix'*/
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.palantir.docker'
+/*
+bootJar {
+    baseName = 'api'
+    version =  '0.0.0.1-SNAPSHOT'
+}*/
+
+repositories {
+    mavenCentral()
+}
+
+/*sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+docker {
+	name "${project.group}/${jar.baseName}"
+	files jar.archivePath
+	buildArgs(['JAR_FILE': "${jar.archiveName}"])
+}*/
+
+/*bootJar {
+	baseName = "api"
+	group    = "io.arbormetrix"
+	version  = "0.0.1-SNAPSHOT"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = "io.arbormetrix.api.Application"
+*/
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+
+
+/*
+buildscript {
 	ext {
 		gradleDockerVersion   = "1.2"
 	}
@@ -19,11 +79,8 @@ apply plugin: "docker"
 apply plugin: 'io.spring.dependency-management'
 apply plugin: "org.springframework.boot"
 
-compileJava {
-    sourceCompatibility = 1.7
-//    targetCompatibility = 1.8
-    mainClassName       = "io.arbormetrix.api.Application"
-}
+sourceCompatibility = 1.7
+mainClassName = "io.arbormetrix.api.Application"
 
 jar {
     baseName = "api"
@@ -33,7 +90,7 @@ jar {
 }
 
 docker {
-    baseImage "alpine"
+    baseImage "anapsix/alpine-java"
 }
 
 repositories {
@@ -42,10 +99,11 @@ repositories {
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web:2.0.1.RELEASE")
-	// compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-	testCompile("org.springframework.boot:spring-boot-starter-test")
+	//compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	testCompile("junit:junit")
 }
 
-dependencyManagement {
-    //imports { mavenBom("org.springframework.boot:spring-boot-dependencies") }
+distDocker {
+	exposePort 8080
 }
+*/
